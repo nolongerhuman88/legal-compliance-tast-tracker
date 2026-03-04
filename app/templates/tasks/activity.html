@@ -1,0 +1,20 @@
+{% extends 'base/layout.html' %}
+{% block title %}Task Activity{% endblock %}
+{% block content %}
+<h3>Activity Log: {{ task.title }}</h3>
+<table class="table table-sm table-bordered">
+<thead><tr><th>Time</th><th>Actor</th><th>Action</th><th>Details</th></tr></thead>
+<tbody>
+{% for item in activities %}
+<tr>
+  <td>{{ item.created_at }}</td>
+  <td>{{ item.actor.full_name }}</td>
+  <td>{{ item.action }}</td>
+  <td>{{ item.details }}</td>
+</tr>
+{% else %}
+<tr><td colspan="4">No activity log entries.</td></tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}
