@@ -1,0 +1,26 @@
+{% extends 'base/layout.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h3 class="mb-4">Compliance Dashboard</h3>
+<div class="row g-3 mb-4">
+  <div class="col-md-4"><div class="card"><div class="card-body"><h6>Overdue Tasks</h6><p class="display-6">{{ metrics.overdue_tasks }}</p></div></div></div>
+  <div class="col-md-4"><div class="card"><div class="card-body"><h6>Status Breakdown</h6>
+    <ul>{% for status, count in metrics.status_counts.items() %}<li>{{ status }}: {{ count }}</li>{% endfor %}</ul>
+  </div></div></div>
+  <div class="col-md-4"><div class="card"><div class="card-body"><h6>Risk Breakdown</h6>
+    <ul>{% for risk, count in metrics.risk_counts.items() %}<li>{{ risk }}: {{ count }}</li>{% endfor %}</ul>
+  </div></div></div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <h6>Reminder H-{{ config.REMINDER_DAYS }} (Due Soon)</h6>
+    <ul class="mb-0">
+      {% for task in due_soon_tasks %}
+      <li>{{ task.title }} - {{ task.due_date }} ({{ task.assignee.full_name }})</li>
+      {% else %}
+      <li>No due-soon tasks.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
